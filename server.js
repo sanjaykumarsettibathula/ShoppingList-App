@@ -1,16 +1,26 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const item = require("./routes/api/items");
 const path = require("path");
 
 const app = express();
 
+// CORS configuration
+const corsOptions = {
+  origin: [
+    "http://localhost:3000",
+    "https://your-app-name.netlify.app", // Replace with your Netlify domain
+  ],
+  credentials: true
+};
+
 // Middleware
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 // Body parser middleware to parse JSON requests
 app.use(bodyParser.urlencoded({ extended: false }));
-// CORS middleware to allow cross-origin requests
 
 // Routes
 app.use("/api/items", item);
