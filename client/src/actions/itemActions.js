@@ -37,7 +37,7 @@ export const deleteItem = (id) => (dispatch) => {
     )
     .catch((err) => console.error("Error deleting item:", err));
 };
-
+    
 export const setItemsLoading = () => ({
   type: ITEMS_LOADING,
 });
