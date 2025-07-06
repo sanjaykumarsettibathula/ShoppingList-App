@@ -1,9 +1,14 @@
 import axios from "axios";
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from "./types";
 
+// Create axios instance with base URL
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API_URL || "http://localhost:5000",
+});
+
 export const getItems = () => (dispatch) => {
   dispatch(setItemsLoading());
-  axios
+  api
     .get("/api/items")
     .then((res) =>
       dispatch({
@@ -15,7 +20,7 @@ export const getItems = () => (dispatch) => {
 };
 
 export const addItem = (item) => (dispatch) => {
-  axios
+  api
     .post("/api/items", item)
     .then((res) =>
       dispatch({
@@ -28,7 +33,7 @@ export const addItem = (item) => (dispatch) => {
 
 export const deleteItem = (id) => (dispatch) => {
   console.log("Attempting to delete item with ID:", id);
-  axios
+  api
     .delete(`/api/items/${id}`)
     .then((res) => {
       console.log("Delete response:", res.data);
