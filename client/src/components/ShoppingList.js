@@ -1,5 +1,5 @@
 import React, { Component, createRef } from "react";
-import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
+import { Container, ListGroup, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getItems, addItem, deleteItem } from "../actions/itemActions";
@@ -31,7 +31,7 @@ class ShoppingList extends Component {
         <ListGroup>
           <TransitionGroup className="Shopping-list">
             {items.map((item) => {
-              const id = item._id || item.id; // Use _id first, then fallback to id
+              const id = item._id || item.id;
               const nodeRef = this.getNodeRef(id);
               return (
                 <CSSTransition
@@ -41,17 +41,18 @@ class ShoppingList extends Component {
                   nodeRef={nodeRef}
                   unmountOnExit
                 >
-                  <ListGroupItem ref={nodeRef} className="list-group-item">
-                    <span>{item.name}</span>
-                    <Button
-                      className="remove-btn"
-                      color="danger"
-                      size="sm"
-                      onClick={() => this.props.deleteItem(id)}
-                    >
-                      &times;
-                    </Button>
-                  </ListGroupItem>
+                  <div ref={nodeRef} className="list-group-item">
+ 
+  <Button
+    className="remove-btn"
+    color="danger"
+    size="sm"
+    onClick={() => this.props.deleteItem(id)}
+  >
+    &times;
+  </Button>
+  <span>{item.name}</span>
+</div>
                 </CSSTransition>
               );
             })}

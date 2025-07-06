@@ -34,14 +34,10 @@ export default function itemReducer(state = initialState, action) {
         ],
       };
     case DELETE_ITEM:
-      console.log("DELETE_ITEM action with payload:", action.payload);
-      console.log("Current items before deletion:", state.items);
       const filteredItems = state.items.filter((item) => {
         const itemId = item._id || item.id;
-        console.log("Comparing itemId:", itemId, "with payload:", action.payload);
         return itemId !== action.payload;
       });
-      console.log("Filtered items after deletion:", filteredItems);
       return {
         ...state,
         items: filteredItems,

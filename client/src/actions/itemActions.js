@@ -32,11 +32,9 @@ export const addItem = (item) => (dispatch) => {
 };
 
 export const deleteItem = (id) => (dispatch) => {
-  console.log("Attempting to delete item with ID:", id);
   api
     .delete(`/api/items/${id}`)
     .then((res) => {
-      console.log("Delete response:", res.data);
       if (res.data.success) {
         dispatch({
           type: DELETE_ITEM,
@@ -45,8 +43,8 @@ export const deleteItem = (id) => (dispatch) => {
       }
     })
     .catch((err) => {
-      console.error("Error deleting item:", err);
       // Optionally dispatch an error action here
+      console.error("Error deleting item:", err);
     });
 };
     
