@@ -27,17 +27,24 @@ export const addItem = (item) => (dispatch) => {
 };
 
 export const deleteItem = (id) => (dispatch) => {
+  console.log("Attempting to delete item with ID:", id);
   axios
     .delete(`/api/items/${id}`)
-    .then(() =>
-      dispatch({
-        type: DELETE_ITEM,
-        payload: id,
-      })
-    )
-    .catch((err) => console.error("Error deleting item:", err));
+    .then((res) => {
+      console.log("Delete response:", res.data);
+      if (res.data.success) {
+        dispatch({
+          type: DELETE_ITEM,
+          payload: id,
+        });
+      }
+    })
+    .catch((err) => {
+      console.error("Error deleting item:", err);
+      // Optionally dispatch an error action here
+    });
 };
-
+    
 export const setItemsLoading = () => ({
   type: ITEMS_LOADING,
 });

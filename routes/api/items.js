@@ -5,20 +5,35 @@ const Item = require("../../models/item");
 // @route   GET api/items
 // @desc    Get all items
 // @access  Public
-router.get("/", (req, res) => {
-  Item.find()
-    .sort({ date: -1 })
-    .then((items) => res.json(items));
+router.get("/", async (req, res) => {
+  try {
+    const items = await Item.find().sort({ date: -1 });
+    res.json(items);
+  } catch (err) {
+    console.error("Error fetching items:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
 });
+
 // @route   POST api/items
 // @desc    Create an item
 // @access  Public
-router.post("/", (req, res) => {
-  const newItem = new Item({
-    name: req.body.name,
-  });
+router.post("/", async (req, res) => {
+  try {
+    if (!req.body.name || req.body.name.trim() === "") {
+      return res.status(400).json({ success: false, message: "Item name is required" });
+    }
 
-  newItem.save().then((item) => res.json(item));
+    const newItem = new Item({
+      name: req.body.name.trim(),
+    });
+
+    const item = await newItem.save();
+    res.json(item);
+  } catch (err) {
+    console.error("Error creating item:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
 });
 
 // @route   DELETE api/items/:id

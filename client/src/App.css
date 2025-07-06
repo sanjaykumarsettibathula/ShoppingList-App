@@ -2,25 +2,48 @@
   margin-right: 0.5rem;
 }
 
+/* Fade transition effects */
 .fade-enter {
-  opacity: 0.01;
+  opacity: 0;
+  transform: translateY(-10px);
 }
+
 .fade-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  transform: translateY(0);
+  transition: opacity 300ms ease-in, transform 300ms ease-out;
 }
 
 .fade-exit {
   opacity: 1;
+  transform: translateY(0);
 }
+
 .fade-exit-active {
-  opacity: 0.01;
-  transition: opacity 500ms ease-in;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 300ms ease-in, transform 300ms ease-out;
 }
-.fade-appear {
-  opacity: 0.01;
+
+/* Shopping list container */
+.Shopping-list {
+  min-height: 200px;
 }
-.fade-appear-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
+
+/* List group item styling */
+.list-group-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  background-color: #fff;
+  transition: all 0.2s ease-in-out;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+  transform: translateX(2px);
 }

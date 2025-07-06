@@ -29,18 +29,20 @@ class ShoppingList extends Component {
     return (
       <Container>
         <ListGroup>
-          <TransitionGroup className="Shopping-list" component={null}>
+          <TransitionGroup className="Shopping-list">
             {items.map((item) => {
-              const id = item.id || item._id; // Fallback if id is undefined
+              const id = item._id || item.id; // Use _id first, then fallback to id
               const nodeRef = this.getNodeRef(id);
               return (
                 <CSSTransition
                   key={id}
-                  timeout={500}
+                  timeout={300}
                   classNames="fade"
                   nodeRef={nodeRef}
+                  unmountOnExit
                 >
-                  <ListGroupItem ref={nodeRef}>
+                  <ListGroupItem ref={nodeRef} className="list-group-item">
+                    <span>{item.name}</span>
                     <Button
                       className="remove-btn"
                       color="danger"
@@ -49,7 +51,6 @@ class ShoppingList extends Component {
                     >
                       &times;
                     </Button>
-                    {item.name}
                   </ListGroupItem>
                 </CSSTransition>
               );
